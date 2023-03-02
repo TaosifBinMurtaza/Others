@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    bool CheckHobby(string hobby)
+    {
+        if (Model != null && Model.Hobbies != null)
+        {
+            foreach (var item in Model.Hobbies)
+            {
+                if (hobby.Equals(item)) return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+@{
+    bool CheckRedio(string gender)
+    {
+        if (Model != null && Model.Gender != null)
+        {
+            if (Model.Gender == gender)
+                return true;
+            
+        }
+        return false;
+    }
+}
+
+
+
+
+@*@Html.ValidationSummary()*@
+<h2>Index</h2>
+<form method="post">
+    Name:<input type="text" name="Name" class="form-control" value="@(Model==null?" ":Model.Name)" />
+    <span class="text-danger">@Html.ValidationMessage("Name")</span><br />
+
+    E-mail:<input type="text" name="Email" class="form-control" value="@(Model==null?" ":Model.Email)" />
+    <span class="text-danger">@Html.ValidationMessage("Email")</span><br />
+
+    Id:<input type="text" name="Id" class="form-control" value="@(Model==null?" ":Model.Id)" />
+    <span class="text-danger">@Html.ValidationMessage("Id")</span><br />
+
+    Date of Birth: <input type="date" class="form-control" name="Dob" value="@(Model==null? "": Model.Dob.ToString("yyyy-MM-dd"))" />
+    <span class="text-danger">@Html.ValidationMessage("Dob")</span><br />
+
+    <br />Profession:<br />
+    <select class="form-control" name="Profession">
+        <option selected disabled> select</option>
+        <option value="Student" >Student</option>
+        <option value="Teacher">Teacher</option>
+    </select>
+
+    Hobbies:
+    <input type="checkbox" checked="@(CheckHobby("Games"))" value="Games" name="Hobbies[]" /> Games
+    <input type="checkbox" checked="@(CheckHobby("Sports"))" value="Sports" name="Hobbies[]" /> Sports
+    <input type="checkbox" checked="@(CheckHobby("Travelling"))" value="Travelling" name="Hobbies[]" /> Travelling
+    <input type="checkbox" checked="@(CheckHobby("Music"))" value="Music" name="Hobbies[]" /> Music
+    <br /><br />
+
+
+    Gender:
+    <input type="radio" name="Gender" value="Male" checked="@(CheckRedio("Male"))" /> Male
+    <input type="radio" name="Gender" value="Female" checked="@(CheckRedio("Female"))" /> Female
+
+
+    <br /><br /><input type="submit" value="Create" class="btn btn-success" />
+</form>
+
